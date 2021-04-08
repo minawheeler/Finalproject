@@ -1,0 +1,55 @@
+import pandas as pd
+import numpy as np
+#import datatable as data table
+import matplotlib.pyplot as plt
+from scipy import stats 
+
+# Graphing
+import matplotlib.pyplot as plt
+from matplotlib import pyplot 
+import seaborn as sns 
+
+from statsmodels.formula.api import ols 
+from scipy.stats import gaussian_kde
+import scipy
+import scipy.sparse
+import patsy 
+from statistics import median
+import bz2
+
+import pickle
+
+import time
+starTime = time.time()
+
+model_dir ="/Downloads/"
+years = [2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010]
+
+def sort_cols(test):
+    return(test.reindex(sorted(test.columns), axis= 1))
+
+frames = {}
+for year in years:
+    fil = model_dir + "pandas-frames." + str (year) + ".pickle.bz2"
+    frames.update(pickle.load( bz2.open(fil, "rb")))
+
+for x in frames: 
+    frames[x] = sort_cols(frames[x])
+# frames.replace(to_replace ='^1DREVERSL', value = 'A1DREVRSL', regex=True, inplace=True)
+    frames[x].raname(columns={'1DREVRSL':'A1DREVRSL'}, inplace= True)
+    
+covariance = {}
+
+for year in years: 
+    fil = model_dir + "covariance." + str(year) +".pickle.bz2"
+    covariance.update(pickle.load( bz2.open(fil, "rb")))
+# covariance.replace(to_replace ='^1DREVRSL',value= 'A1DREVRSL', regex=True, inplace=True)
+
+for x in covariance:
+    covariance[x].replace(to_replace = '^1DREVRSL', value = 'A1DREVRSL', regex=True, inplace=True)
+    
+
+framme['20030102']
+
+covariance['20030102']
+
